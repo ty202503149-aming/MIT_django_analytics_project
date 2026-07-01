@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+Welcome
+{% endblock page_title %}
+
+{% block page_subtitle %}
+An introduction to the Gaming & Academic Performance analytics system.
+{% endblock page_subtitle %}
+
+{% block content %}
+<div class="welcome-grid">
+    <div class="welcome-text">
+        <p>
+            <strong>Welcome!</strong> This system helps you explore how gaming behavior, study routines,
+            sleep patterns, and device usage relate to academic performance and student well-being.
+        </p>
+        <p>
+            You can use it to support healthier habits, identify potential risks, and make
+            data‑informed decisions for students and players.
+        </p>
+    </div>
+    <div class="welcome-highlights">
+        <div>
+            <span class="welcome-dot"></span>
+            <span>Review aggregated statistics for your student records.</span>
+        </div>
+        <div>
+            <span class="welcome-dot"></span>
+            <span>See how stress levels distribute across different profiles.</span>
+        </div>
+        <div>
+            <span class="welcome-dot"></span>
+            <span>Run personalized predictions for individual scenarios.</span>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top:22px;">
+    <a href="{% url 'analytics_overview' %}"
+       style="
+           display:inline-flex;
+           align-items:center;
+           gap:8px;
+           padding:10px 20px;
+           border-radius:999px;
+           text-decoration:none;
+           background:linear-gradient(135deg, #2563eb, #60a5fa);
+           color:#ffffff;
+           font-size:13px;
+           font-weight:600;
+           box-shadow:0 12px 26px rgba(37,99,235,0.35);
+       ">
+        <span>Go to Overview</span>
+        <svg viewBox="0 0 20 20" fill="none" style="width:14px;height:14px;">
+            <path d="M7 5l5 5-5 5" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </a>
+</div>
+{% endblock content %}

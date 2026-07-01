@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Gaming & Academic Performance</title>
+    {% load static %}
+    <style>
+        :root {
+            /* Purples + soft neutrals */
+            --bg-body: #f5f3ff;
+            --bg-shell: #fdfcff;
+            --bg-header: #f8f5ff;
+            --bg-card: #ffffff;
+            --accent: #7c3aed;          /* main purple */
+            --accent-soft: #a855f7;     /* lighter purple */
+            --accent-pill: #ede9fe;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --border-subtle: #e5e7eb;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --success: #16a34a;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow-soft: 0 18px 40px rgba(55, 65, 81, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, #ede9fe 0, #faf5ff 45%, #ffffff 100%);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+        }
+
+        .shell {
+            width: 100%;
+            max-width: 1120px;
+            padding: 24px 20px 40px;
+        }
+
+        header {
+            background: var(--bg-header);
+            border-radius: var(--radius-lg);
+            padding: 18px 22px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 12px 34px rgba(79, 70, 229, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 0%, #f5d0fe, #a855f7 40%, #581c87 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 24px rgba(124, 58, 237, 0.55);
+            font-weight: 700;
+            font-size: 18px;
+            color: #f9fafb;
+        }
+
+        .brand-text h1 {
+            font-size: 20px;
+            letter-spacing: 0.02em;
+            margin: 0 0 4px;
+        }
+
+        .brand-text span {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px;
+            border-radius: 999px;
+            background: #f3e8ff;
+            border: 1px solid #e9d5ff;
+        }
+
+        nav a {
+            position: relative;
+            padding: 7px 14px;
+            border-radius: 999px;
+            font-size: 14px;
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: all 0.18s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+            background: #ede9fe;
+        }
+
+        .nav-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+            color: #f9fafb;
+            box-shadow: 0 8px 18px rgba(124, 58, 237, 0.45);
+        }
+
+        .nav-primary:hover {
+            background: linear-gradient(135deg, var(--accent-soft), var(--accent));
+        }
+
+        .content-shell {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 18px;
+        }
+
+        @media (max-width: 860px) {
+            .content-shell {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .content-main {
+            background: var(--bg-shell);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-soft);
+            padding: 22px 22px 24px;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--accent-pill);
+            color: #312e81;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .hero-pill span.dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: #22c55e;
+        }
+
+        .content-main h2 {
+            font-size: 22px;
+            margin: 0 0 6px;
+        }
+
+        .content-main .subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .welcome-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        @media (max-width: 720px) {
+            .welcome-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .welcome-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .welcome-text strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .welcome-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .welcome-highlights div {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .welcome-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: #c4b5fd;
+        }
+
+        .content-aside {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .widget {
+            background: #fdf4ff;
+            border-radius: var(--radius-md);
+            border: 1px solid #f5d0fe;
+            padding: 14px 15px;
+            box-shadow: 0 10px 24px rgba(148, 112, 228, 0.1);
+        }
+
+        .widget h3 {
+            font-size: 14px;
+            margin: 0 0 6px;
+            color: #312e81;
+        }
+
+        .widget p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+            padding: 16px 17px;
+            margin-bottom: 14px;
+        }
+
+        .card h3 {
+            font-size: 15px;
+            margin: 0 0 8px;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+            margin: 4px 0 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .card ul li {
+            padding: 4px 0;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        .card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 14px 15px;
+            border-radius: var(--radius-md);
+            border: 1px solid #c4b5fd;
+            background: #ede9fe;
+            text-decoration: none;
+            color: #312e81;
+            font-size: 13px;
+            transition: all 0.16s ease;
+        }
+
+        .link-card:hover {
+            border-color: var(--accent-soft);
+            box-shadow: 0 10px 22px rgba(124, 58, 237, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .link-card span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .link-card svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .errors {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            padding: 10px 12px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .errors ul {
+            margin: 0;
+            padding-left: 16px;
+        }
+
+        .result {
+            margin-top: 14px;
+            padding: 14px 15px;
+            border-radius: var(--radius-md);
+            border: 1px solid #e5e7eb;
+            background: #f3f4ff;
+            font-size: 13px;
+        }
+
+        .stress-low {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .stress-medium {
+            color: var(--warning);
+            font-weight: 600;
+        }
+
+        .stress-high {
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        form {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px 18px;
+        }
+
+        @media (max-width: 720px) {
+            form {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        form p {
+            margin: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 7px 9px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            color: var(--text-main);
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+        }
+
+        input[type="number"]:focus,
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.5);
+            background: #f9fafb;
+        }
+
+        button[type="submit"] {
+            margin-top: 4px;
+            grid-column: 1 / -1;
+            padding: 9px 14px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+            color: #f9fafb;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 12px 26px rgba(124, 58, 237, 0.45);
+            transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, var(--accent-soft), var(--accent));
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(124, 58, 237, 0.55);
+        }
+
+        button[type="submit"] svg {
+            width: 14px;
+            height: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <header>
+            <div class="brand">
+                <div class="brand-icon">GP</div>
+                <div class="brand-text">
+                    <h1>Gaming & Academics</h1>
+                    <span>Behavior analytics & performance insights</span>
+                </div>
+            </div>
+            <nav>
+                {% with path=request.path %}
+                    <a href="{% url 'analytics_overview' %}"
+                       class="{% if 'overview' in path or path == '/' %}nav-primary{% endif %}">
+                        Overview
+                    </a>
+                    <a href="{% url 'analytics_predict' %}"
+                       class="{% if 'predict' in path %}nav-primary{% endif %}">
+                        Predict
+                    </a>
+                {% endwith %}
+            </nav>
+        </header>
+
+        <div class="content-shell">
+            <div class="content-main">
+                <!-- Welcome hero section -->
+                <div class="hero-pill">
+                    <span class="dot"></span>
+                    <span>Welcome to the Gaming & Academic Performance System</span>
+                </div>
+
+                <h2>{% block page_title %}Dashboard{% endblock page_title %}</h2>
+                <p class="subtitle">
+                    {% block page_subtitle %}
+                    Monitor how gaming habits, study routines, and sleep patterns relate to student grades and stress.
+                    {% endblock page_subtitle %}
+                </p>
+
+                <div class="welcome-grid">
+                    <div class="welcome-text">
+                        <p>
+                            <strong>About this system:</strong> This dashboard analyzes student behavior data to help
+                            educators and learners understand the impact of gaming on academic performance and well-being.
+                        </p>
+                        <p>
+                            Use the <strong>Overview</strong> page to see global trends and averages, and the
+                            <strong>Predict</strong> page to estimate addiction risk and stress level for a specific student profile.
+                        </p>
+                    </div>
+                    <div class="welcome-highlights">
+                        <div>
+                            <span class="welcome-dot"></span>
+                            <span>Track key metrics: gaming hours, study time, sleep, and grades.</span>
+                        </div>
+                        <div>
+                            <span class="welcome-dot"></span>
+                            <span>Visualize stress distribution across your student records.</span>
+                        </div>
+                        <div>
+                            <span class="welcome-dot"></span>
+                            <span>Run quick predictions to support better study and gaming habits.</span>
+                        </div>
+                    </div>
+                </div>
+
+                {% block content %}
+                {% endblock content %}
+            </div>
+
+            <aside class="content-aside">
+                <div class="widget">
+                    <h3>Getting started</h3>
+                    <p>Start by reviewing the overview metrics, then try a few prediction scenarios to explore how behavior changes affect outcomes.</p>
+                </div>
+                <a href="{% url 'analytics_predict' %}" class="link-card">
+                    <span>
+                        Run a new prediction
+                        <svg viewBox="0 0 20 20" fill="none">
+                            <path d="M7 5l5 5-5 5" stroke="#7c3aed" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span style="color:#6b7280;">See the impact of gaming habits in seconds</span>
+                </a>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>

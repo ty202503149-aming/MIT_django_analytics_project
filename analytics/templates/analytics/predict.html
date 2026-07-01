@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Predict Addiction Score and Stress Level</h2>
+
+    {% if errors %}
+        <div class="errors">
+            <ul>
+                {% for e in errors %}
+                    <li>{{ e }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <p>
+            <label>Age:</label><br>
+            <input type="number" name="age" required>
+        </p>
+
+        <p>
+            <label>Gender:</label><br>
+            <select name="gender" required>
+                <option value="">-- Select gender --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </p>
+
+        <p>
+            <label>Gaming hours per week:</label><br>
+            <input type="number" step="0.1" name="gaming_hours" required>
+        </p>
+
+        <p>
+            <label>Study hours per week:</label><br>
+            <input type="number" step="0.1" name="study_hours" required>
+        </p>
+
+        <p>
+            <label>Sleep hours per night:</label><br>
+            <input type="number" step="0.1" name="sleep_hours" required>
+        </p>
+
+        <p>
+            <label>Attendance (%):</label><br>
+            <input type="number" step="0.1" name="attendance" required>
+        </p>
+
+        <p>
+            <label>Gaming genre:</label><br>
+            <select name="gaming_genre" required>
+                <option value="">-- Select genre --</option>
+                <option value="RPG">RPG</option>
+                <option value="FPS">FPS</option>
+                <option value="Casual">Casual</option>
+                <option value="Sports">Sports</option>
+                <option value="Strategy">Strategy</option>
+            </select>
+        </p>
+
+        <p>
+            <label>Social activity (hours/week):</label><br>
+            <input type="number" step="0.1" name="social_activity" required>
+        </p>
+
+        <p>
+            <label>Device usage (hours/day):</label><br>
+            <input type="number" step="0.1" name="device_usage" required>
+        </p>
+
+        <p>
+            <label>Reaction time (ms):</label><br>
+            <input type="number" step="0.1" name="reaction_time_ms" required>
+        </p>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result">
+            <h2>Prediction Result</h2>
+            <p><strong>Addiction score:</strong> {{ prediction.addiction_score }}</p>
+
+            {% if prediction.stress_level == "Low" %}
+                <p><strong>Stress level:</strong> <span class="stress-low">{{ prediction.stress_level }}</span></p>
+            {% elif prediction.stress_level == "Medium" %}
+                <p><strong>Stress level:</strong> <span class="stress-medium">{{ prediction.stress_level }}</span></p>
+            {% else %}
+                <p><strong>Stress level:</strong> <span class="stress-high">{{ prediction.stress_level }}</span></p>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock content %}
